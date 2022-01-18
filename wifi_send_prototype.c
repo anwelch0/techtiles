@@ -1,9 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
-#define WIFI_SSID "some network"
+#define WIFI_SSID "some network" //will be the hypothetical hospital's wifi
 #define WIFI_PASS "some password"
-#define UDP_PORT someport1234
+#define UDP_PORT 4210
 
 //define udp
 WifiUDP UDP;
@@ -37,14 +37,17 @@ void UDPsetup(){
 
 void sendPacket(string destIP, string destPort, string sensorData){
 	UDP.beginPacket(destIP, destPort);
-    UDP.write(sensorData);
-    UDP.endPacket();
+    	UDP.write(sensorData);
+	UDP.endPacket();
 }
+
+//TODO: Enable interrupts in this file and turn on transmission ONLY when interrupts are triggered
+//TODO: Create method to read & process the sensors in its own header and .c file
 
 int main(){
 	UDPsetup();
 	while(1){
-		sendPacket("some ip", "some udp port" sensorData);
+		sendPacket("some ip", "some udp port" sensorData); //should be the ip adress and port of the computer with the display program
 		delay(5000);
 	}
 	
