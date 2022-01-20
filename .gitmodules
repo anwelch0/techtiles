@@ -1,0 +1,3 @@
+[submodule "Wireless Communication/Arduino"]
+	path = Wireless Communication/Arduino
+	url = https://github.com/anwelch0/Arduino.git
