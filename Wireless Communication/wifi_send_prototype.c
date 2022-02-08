@@ -20,7 +20,6 @@ unsigned long resetTime = 0;
 const unsigned long MSCUTOFF = 5000;
 //will determine if wireless needs to be shut off
 
-string sensorData;
 
 void UDPsetup(){
   //set up serial
@@ -45,7 +44,7 @@ void UDPsetup(){
   Serial.println(UDP_PORT);
 }
 
-void sendPacket(char *destIP, uint16_t destPort, string sensorData){
+void sendPacket(char *destIP, uint16_t destPort, char *sensorData){
   UDP.beginPacket(destIP, destPort);
     UDP.write(sensorData);
     UDP.endPacket();
@@ -65,14 +64,16 @@ void wirelessEnable(){
 //TODO: Create method to read & process the sensors in its own header and .c file
 
 int main(){
-  
+  string sensorData = "10001000";
+  char* dataArray; //sensor data will be cast to this array to be sent through wifi module
   UDPsetup();
   attachInterrupt(digitalPinToInterrupt(2), wirelessEnable, CHANGE);
   //sets up interrupt to enable wifi, detects change on digital pin 2
   
   while(1){
     if(wifiEn){
-      sendPacket("some ip", 4210, sensorData);
+      dataArray = &sensorData[0];
+      sendPacket("some ip", 4210, dataArray);
       delay(5000);
     }
     
