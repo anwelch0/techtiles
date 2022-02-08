@@ -1,8 +1,8 @@
-#include <dummy.h>
-
-#include <ESP8266WiFi.h>
+const int dummy = 0;
+//#include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-#include <string>
+#include <WiFi.h>
+//#include <string>
 
 using namespace std;
 
@@ -27,7 +27,7 @@ void UDPsetup(){
   Serial.println();
   
   //turn on WiFi
-  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  //WiFiUDP.begin();
   Serial.print("Connecting to ");
   Serial.print(WIFI_SSID);
   //wait for WiFi to connect
@@ -64,7 +64,7 @@ void wirelessEnable(){
 //TODO: Create method to read & process the sensors in its own header and .c file
 
 int main(){
-  string sensorData = "10001000";
+  String sensorData = "10001000";
   char* dataArray; //sensor data will be cast to this array to be sent through wifi module
   UDPsetup();
   attachInterrupt(digitalPinToInterrupt(2), wirelessEnable, CHANGE);
